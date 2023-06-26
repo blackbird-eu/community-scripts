@@ -7,7 +7,7 @@
 
   ## Usage
   ```
-  $ go run main.go
+  $ go run main.go -target example.com
   ```
 
   ## Installation
