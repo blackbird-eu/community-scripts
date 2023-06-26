@@ -18,7 +18,7 @@ func main() {
 		return
 	}
 
-	var target string = *targetFlag
+	var target string = *targetFlag //"binance.com"
 
 	tag := FetchGTMTag(target)
 	subdomains := FetchDomains(target, tag)
@@ -54,8 +54,6 @@ func FetchGTMTag(target string) string {
 	re := regexp.MustCompile(`GTM-[A-Z0-9]{7}`)
 	tag = re.FindString(string(body))
 
-	fmt.Println("Tag:", tag)
-
 	return tag
 }
 
@@ -87,8 +85,6 @@ func FetchDomains(target string, tag string) []string {
 
 	// Root domain used to match domains
 	rootDomain := ParseRootDomain(target)
-
-	fmt.Println("rootDomain:", rootDomain)
 
 	re := regexp.MustCompile(fmt.Sprintf(`(([a-zA-Z0-9-\.]+)?\.)?%s\.[a-zA-Z]{0,3}(\.[a-zA-Z]{0,3})?`, rootDomain))
 	domains := re.FindAllString(string(body), -1)
