@@ -23,6 +23,8 @@ func main() {
 	tag := FetchGTMTag(target)
 	subdomains := FetchDomains(target, tag)
 
+	subdomains = RemoveDuplicates(subdomains)
+
 	for _, s := range subdomains {
 		fmt.Println(s)
 	}
@@ -116,4 +118,20 @@ func ParseRootDomain(target string) string {
 	}
 
 	return rootDomain
+}
+
+func RemoveDuplicates(domains []string) []string {
+	encountered := map[string]bool{}
+	uniqueDomains := []string{}
+
+	for _, v := range domains {
+		if encountered[v] != true {
+			encountered[v] = true
+			uniqueDomains = append(uniqueDomains, fmt.Sprintf("%s", v))
+		}
+
+		continue
+	}
+
+	return uniqueDomains
 }
