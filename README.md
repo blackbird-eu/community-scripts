@@ -5,4 +5,4 @@ Enjoy!
 
 🥷
 
-![https://novasec.io](https://novasec.io/social-banner.png)
+[https://novasec.io](https://novasec.io/?ref=github)
