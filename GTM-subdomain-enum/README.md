@@ -5,15 +5,15 @@
 
   **This is only if your target makes use of Google Tag Manager.**
 
+  ## Usage
+  ```
+  $ go run main.go
+  ```
+
   ## Installation
   No dependencies third-party are required. Latest version of Golang is recommended.
 
   ```
   $ git clone https://github.com/novasecurityio/community-scripts.git
   $ cd community-scripts/GTM-subdomain-enum
-  ```
-
-  ## Usage
-  ```
-  $ go run main.go
   ```
