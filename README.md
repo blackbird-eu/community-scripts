@@ -5,4 +5,4 @@ Enjoy!
 
 🥷
 
-[https://novasec.io](https://novasec.io/?ref=github)
+Start scanning for vulnerabilities today: [https://novasec.io](https://novasec.io/?ref=github)
