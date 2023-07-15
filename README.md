@@ -1,4 +1,4 @@
-# community-scripts
+# Community Scripts
 A list of open-source community scripts published to help you automate your work and lower false positives
 
 Enjoy!
