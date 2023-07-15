@@ -11,7 +11,7 @@
   ```
 
   ## Installation
-  No dependencies third-party are required. Latest version of Golang is recommended.
+  No third-party dependencies are required. Latest version of Golang is recommended.
 
   ```
   $ git clone https://github.com/novasecurityio/community-scripts.git
