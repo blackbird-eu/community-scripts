@@ -1,4 +1,4 @@
-  # GTM Subdomain Enumeration script
+  # Google Tag Manager Subdomain Enumeration script
   Enumerate subdomains using Google Tag Manager!
   ## Description
   Enumerate subdomains using Google Tag Manager! GTM Scripts can contain subdomains of your target domain and you can use these to include them into your recon process.
