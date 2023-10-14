@@ -1,5 +1,5 @@
 # Community Scripts
-A list of open-source community scripts published to help you automate your work. Want the full automated version? Cloud-based? And aimed at helping dev teams to find vulnerabilities early on? Check out (https://novasec.io)[https://novasec.io]
+A list of open-source community scripts published to help you automate your work. Want the full automated version? Cloud-based? And aimed at helping dev teams to find vulnerabilities early on? Check out https://novasec.io
 
 
 ## Tools:

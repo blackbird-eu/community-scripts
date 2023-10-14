@@ -1,20 +1,22 @@
 # URLFilter
-Filter a list of URLs for duplicates quickly
+Filter URLs for duplicates
 
 ## Description
-Filter a list of URLs for duplicates quickly.
+URLFilter is a simple tool to filter a list of URLs for duplicates quickly and return unique results.
+
+Our approach involves looking for common patterns and filtering for unique results. More filters will be added over time. Feedback and contributions are welcome as always of course.
 
 ## Usage
 ```
-	$ cat urls.txt | go run main.go
+ $ cat urls.txt | go run main.go
 ```
 
 ## Installation
 No third-party dependencies are required. Latest version of Golang is recommended.
 
 ```
-	$ git clone https://github.com/novasecurityio/community-scripts.git
-	$ cd community-scripts/URLFilter
+ $ git clone https://github.com/novasecurityio/community-scripts.git
+ $ cd community-scripts/URLFilter
 ```
 
 You can additionally build and compile the Golang script and move/add it to your $PATH.
