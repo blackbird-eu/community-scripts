@@ -27,7 +27,7 @@ func FilterURLs(urls []string) []string {
 		// Ignore fragment and query parameters for comparison
 		parsedURL.Fragment = ""
 		parsedURL.RawQuery = ""
-
+		
 		// Match and replace UUIDs in the path with a placeholder like "00000000-0000-0000-0000-000000000000"
 		re := regexp.MustCompile(`[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}`)
 		normalizedPath := re.ReplaceAllStringFunc(pathSegments, func(s string) string {
@@ -81,7 +81,7 @@ func main() {
 		fmt.Fprintln(os.Stderr, "Error: Failed reading input from stdin!", err)
 	}
 
-	URLs = FilterURLs(urls)
+	URLs = FilterURLs(URLs)
 
 	// Print unique URLs
 	for _, u := range URLs {
