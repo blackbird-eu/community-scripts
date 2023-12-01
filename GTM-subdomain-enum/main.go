@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"flag"
+	"time"
 	"regexp"
 	"strings"
+	"context"
 	"net/http"
 	"io/ioutil"
 )
@@ -18,7 +20,7 @@ func main() {
 		return
 	}
 
-	var target string = *targetFlag //"binance.com"
+	var target string = *targetFlag
 
 	tag := FetchGTMTag(target)
 	subdomains := FetchDomains(target, tag)
@@ -31,6 +33,9 @@ func main() {
 }
 
 func FetchGTMTag(target string) string {
+	ctx, cancel := context.WithTimeout(context.Background(), 7 * time.Second)
+	defer cancel()
+
 	var tag string = ""
 
 	req, err := http.NewRequest("GET", fmt.Sprintf("https://%s", target), nil)
@@ -38,34 +43,48 @@ func FetchGTMTag(target string) string {
 		fmt.Printf("ERROR: Failed to send request %s (%s)\n", req, err)
 	}
 
+	req.WithContext(ctx)
+
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36")
+
 	client := &http.Client{}
 
 	res, err := client.Do(req)
 	if err != nil {
-		fmt.Printf("ERROR: Failed to read response %s (%s)\n", res, err)
-	}
-	defer res.Body.Close()
-
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println("Error reading response body:", err)
-		return tag
+		fmt.Printf("ERROR: Failed to read response %v (%s)\n", res, err)
 	}
 
-	// Match and return a GTM ID if present
-	re := regexp.MustCompile(`GTM-[A-Z0-9]{7}`)
-	tag = re.FindString(string(body))
+	if res != nil {
+		defer res.Body.Close()
+
+		body, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			fmt.Println("ERROR: Failed reading response body:", err)
+			return tag
+		}
+
+		// Match and return a GTM ID if present
+		re := regexp.MustCompile(`GTM-[A-Z0-9]{7}`)
+		tag = re.FindString(string(body))
+	}
 
 	return tag
 }
 
 func FetchDomains(target string, tag string) []string {
+	ctx, cancel := context.WithTimeout(context.Background(), 7 * time.Second)
+	defer cancel()
+
 	var subdomains []string
 
 	req, err := http.NewRequest("GET", fmt.Sprintf("https://googletagmanager.com/gtm.js?id=%s", tag), nil)
 	if err != nil {
 		fmt.Printf("ERROR: Failed to send request %s (%s)\n", req, err)
 	}
+
+	req.WithContext(ctx)
+
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36")
 
 	client := &http.Client{
 		CheckRedirect: func(req *http.Request, via []*http.Request) error {
@@ -75,28 +94,31 @@ func FetchDomains(target string, tag string) []string {
 
 	res, err := client.Do(req)
 	if err != nil {
-		fmt.Printf("ERROR: Failed to read response %s (%s)\n", res, err)
-	}
-	defer res.Body.Close()
-
-	body, err := ioutil.ReadAll(res.Body)
-	if err != nil {
-		fmt.Println("Error reading response body:", err)
-		return subdomains
+		fmt.Printf("ERROR: Failed to read response %v (%s)\n", res, err)
 	}
 
-	// Root domain used to match domains
-	rootDomain := ParseRootDomain(target)
+	if res != nil {
+		defer res.Body.Close()
 
-	re := regexp.MustCompile(fmt.Sprintf(`(([a-zA-Z0-9-\.]+)?\.)?%s\.[a-zA-Z]{0,3}(\.[a-zA-Z]{0,3})?`, rootDomain))
-	domains := re.FindAllString(string(body), -1)
+		body, err := ioutil.ReadAll(res.Body)
+		if err != nil {
+			fmt.Println("ERROR: Failed reading response body:", err)
+			return subdomains
+		}
 
-	for _, domain := range domains {
-		// Inscope regexp to match inscope domains
-		inScope, _ := regexp.MatchString(fmt.Sprintf(`^(.*\.)?%s$`, target), domain)
-		
-		if inScope {
-			subdomains = append(subdomains, domain)
+		// Root domain used to match domains
+		rootDomain := ParseRootDomain(target)
+
+		re := regexp.MustCompile(fmt.Sprintf(`(([a-zA-Z0-9-\.]+)?\.)?%s\.[a-zA-Z]{0,3}(\.[a-zA-Z]{0,3})?`, rootDomain))
+		domains := re.FindAllString(string(body), -1)
+
+		for _, domain := range domains {
+			// Inscope regexp to match inscope domains
+			inScope, _ := regexp.MatchString(fmt.Sprintf(`^(.*\.)?%s$`, target), domain)
+			
+			if inScope {
+				subdomains = append(subdomains, domain)
+			}
 		}
 	}
 
