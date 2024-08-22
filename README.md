@@ -1,5 +1,5 @@
 # Community Scripts
-A list of open-source community scripts published to help you automate your work. Want the full automated version? Cloud-based? And aimed at helping dev teams to find vulnerabilities early on? Check out https://novasec.io
+A list of open-source community scripts published to help you automate your work.
 
 
 ## Tools:
@@ -8,6 +8,6 @@ A list of open-source community scripts published to help you automate your work
 
 <br />
 
-<a href='https://novasec.io/?ref=github'>
-	<img src='banner_image.png' width='750px'>
+<a href='https://blackbirdsec.eu/?ref=github'>
+	<img src='https://raw.githubusercontent.com/novasecurityio/.github/main/profile/profile_banner.png' width='auto' style='margin-left: auto; margin-right: auto;'>
 </a>
