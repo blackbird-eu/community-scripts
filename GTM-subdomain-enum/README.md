@@ -14,15 +14,15 @@
   No third-party dependencies are required. Latest version of Golang is recommended.
 
   ```
-  $ git clone https://github.com/novasecurityio/community-scripts.git
+  $ git clone https://github.com/blackbird-eu/community-scripts.git
   $ cd community-scripts/GTM-subdomain-enum
   ```
 
 
   **Start scanning for vulnerabilities today:**
   <p align="center">
-     <a href="https://novasec.io/?ref=github">
-      <img src="https://novasec.io/social-banner.png" width="750px">
+     <a href="https://blackbirdsec.eu/?ref=github">
+      <img src="https://blackbirdsec.eu/assets/social-banner.png" width="750px">
      </a>
   </p>
   </br>
